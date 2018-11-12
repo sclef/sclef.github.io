@@ -79,7 +79,7 @@ class newsRetriver {
             }
 
             articleTemplate.innerHTML = `<div class='article'>
-                <div class='article-header'>${art.title}</div>
+                <div class='article-header'><h2>${art.title}</h2></div>
                 <div class='article-body'> <a href='${art.url}' target='_blank'>${artImg}</a> ${artDesc}</div>
                 <div class='article-footer'> 
                     ${published}
