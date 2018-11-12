@@ -3,17 +3,20 @@
 class newsRetriver {
     constructor() {
         this.ApiKey = 'e03d718829c24339b5ea62712a181aae';
-        this.filterredArticles=[];
+        this.filterredArticles = [];
     }
 
     getNews(source) {
         console.log(source);
-        const SourceUrl = new URL('https://newsapi.org/v1/articles');
-        let params = { source: source, apiKey: this.ApiKey };
+        let urls = source.map(s => {
+            let SourceUrl = new URL('https://newsapi.org/v1/articles');
+            let params = { source: s, apiKey: this.ApiKey };
 
-        Object.keys(params).forEach(key => SourceUrl.searchParams.append(key, params[key]))
+            Object.keys(params).forEach(key => SourceUrl.searchParams.append(key, params[key]))
+            return SourceUrl;
+        });
 
-        this.sendRequestForJson(SourceUrl, this.showNews);
+        this.sendRequestForJson(urls, this.showNews);
 
     }
     getAllSouces() {
@@ -28,11 +31,11 @@ class newsRetriver {
         };
 
         console.log(resp);
-        let categories = resp.sources.map(a => a.category).filter(uniqueCategories);
+        let categories = resp[0].sources.map(a => a.category).filter(uniqueCategories);
         console.log(categories);
         for (let i = 0; i < categories.length; i++) {
             let cat = categories[i];
-            let catResources = resp.sources.filter(r => r.category === cat);
+            let catResources = resp[0].sources.filter(r => r.category === cat);
             let categoryOptions = '';
             for (let j = 0; j < catResources.length; j++) {
                 categoryOptions = categoryOptions.concat(`<div><input class='source-checkbox' type='checkbox' id='${catResources[j].id}-id'/><label for='${catResources[j].id}'>${catResources[j].name}</label></div>`)
@@ -47,17 +50,22 @@ class newsRetriver {
         document.getElementsByClassName("category-selection");
     }
 
-    showNews(resp) {
-        console.log(resp);
+    showNews(data) {
+        console.log(data);
         let newsContainer = document.getElementById("news-container");
         newsContainer.innerHTML = '';
+        let articles = [];
+        for (let i = 0; i < data.length; i++) {
+            articles.push(...data[i].articles);
+        }
+        articles = articles.sort((x, y) => Date.parse(y.publishedAt) - Date.parse(x.publishedAt));
 
         for (let i = 0; i < 10; i++) {
-            if (!resp.articles[i]) {
+            if (!articles[i]) {
                 return;
             }
 
-            let art = resp.articles[i];
+            let art = articles[i];
             let articleTemplate = document.createElement("div");
             articleTemplate.innerHTML = `<div id='//to insert an iterator here' class='article'>
                 <div class='article-header'>${art.title}</div>
@@ -75,39 +83,9 @@ class newsRetriver {
 
 
     sendRequestForJson(urls, callbackFunction) {
-        let returnData = function(url) { return fetch(url)
-            .then(function (response) {
-                const contentType = response.headers.get("content-type");
-                if (contentType && contentType.includes("application/json")) {
-                    //this.filterredArticles.push(response.json());
-                    return response.json();
-                }
-                throw new TypeError("Oops, we haven't got JSON!");
-            });};
+        let promises = urls.map(url => fetch(url).then(y => y.json()));
+        Promise.all(promises).then(callbackFunction);
 
-        const promises = [];
-        for (let i = 0; i < urls.length; i++) {
-            promises.push(new Promise(resolve => returnData(urls[i])));
-        }
-
-        Promise.all(promises)
-            // .then(data => {
-            //     const contentType = data.headers.get("content-type");
-            //     if (contentType && contentType.includes("application/json")) {
-            //         return data.json();
-            //     }
-            //     throw new TypeError("Oops, we haven't got JSON!");
-            // })
-            .then(callbackFunction)
-            .catch(function (error) {
-                console.log(error);
-            });
-       
-
-            // .then(callbackFunction)
-            // .catch(function (error) {
-            //     console.log(error);
-            // });
     }
 
 
@@ -115,7 +93,7 @@ class newsRetriver {
 
 const newsRet = new newsRetriver();
 newsRet.getAllSouces();
-//newsRet.getNews(["ars-technica"]);
+newsRet.getNews(["ars-technica"]);
 
 function applyFilters() {
     let checkbxChecked = Array.prototype.slice.call(document.getElementsByClassName("source-checkbox"), 0)
@@ -124,4 +102,4 @@ function applyFilters() {
 
 }
 
-// let sortedArticles=resp.articles.sort((x,y)=>Date.parse(y.publishedAt) - Date.parse(x.publishedAt)); //.map(x=>new Date(Date.parse(x.publishedAt)))                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+//let sortedArticles=resp.articles.sort((x,y)=>Date.parse(y.publishedAt) - Date.parse(x.publishedAt)); //.map(x=>new Date(Date.parse(x.publishedAt)))                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
