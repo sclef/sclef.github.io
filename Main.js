@@ -1,4 +1,3 @@
-
 import NewsRetriever from 'NewsRetriever.js';
 
 const newsRet = new NewsRetriever();
