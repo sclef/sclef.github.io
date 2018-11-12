@@ -3,6 +3,7 @@
 class newsRetriver {
     constructor() {
         this.ApiKey = 'e03d718829c24339b5ea62712a181aae';
+        this.filterredArticles=[];
     }
 
     getNews(source) {
@@ -18,46 +19,109 @@ class newsRetriver {
     getAllSouces() {
         const allSourcesUrl = 'https://newsapi.org/v1/sources';
 
-        this.sendRequestForJson(allSourcesUrl, this.fillMenu);
+        this.sendRequestForJson([allSourcesUrl], this.fillMenu);
     }
 
     fillMenu(resp) {
+        let uniqueCategories = function (item, index, self) {
+            return self.indexOf(item) === index;
+        };
+
         console.log(resp);
+        let categories = resp.sources.map(a => a.category).filter(uniqueCategories);
+        console.log(categories);
+        for (let i = 0; i < categories.length; i++) {
+            let cat = categories[i];
+            let catResources = resp.sources.filter(r => r.category === cat);
+            let categoryOptions = '';
+            for (let j = 0; j < catResources.length; j++) {
+                categoryOptions = categoryOptions.concat(`<div><input class='source-checkbox' type='checkbox' id='${catResources[j].id}-id'/><label for='${catResources[j].id}'>${catResources[j].name}</label></div>`)
+            }
+            let categoryTemplate = document.createElement("div");
+            categoryTemplate.id = `${cat}-select`;
+            categoryTemplate.className = 'category-selection';
+            categoryTemplate.innerHTML = categoryOptions;
+            document.getElementById("table-headers").appendChild(document.createElement("td")).append(cat);
+            document.getElementById("table-options").appendChild(document.createElement("td")).appendChild(categoryTemplate);
+        }
+        document.getElementsByClassName("category-selection");
     }
 
     showNews(resp) {
         console.log(resp);
-        let articleTemplate = '';
+        let newsContainer = document.getElementById("news-container");
+        newsContainer.innerHTML = '';
+
         for (let i = 0; i < 10; i++) {
-            let art = rep.articles[i];
-            let articleTemplate = `<div id='//to insert an iterator here' class='article'>
+            if (!resp.articles[i]) {
+                return;
+            }
+
+            let art = resp.articles[i];
+            let articleTemplate = document.createElement("div");
+            articleTemplate.innerHTML = `<div id='//to insert an iterator here' class='article'>
                 <div class='article-header'>${art.title}</div>
-                <div class='article-body'> <a href='${art.url}'><img src='${art.urlToImage}'/></a> ${art.description}</div>
-                <div class='article-footer'> Published: ${art.publishedAt}</div>
+                <div class='article-body'> <a href='${art.url}' target='_blank'><img src='${art.urlToImage}'/></a> ${art.description}</div>
+                <div class='article-footer'> 
+                    Published: ${art.publishedAt.substr(0, 10)}. 
+                    <a href='https://newsapi.org' target='_blank'>Powered by NewsAPI.org</a>
+                </div>
             </div>`;
-            $('#news-container').append(articleTemplate);
+
+            newsContainer.appendChild(articleTemplate);
         }
     }
 
-    sendRequestForJson(url, callbackFunction) {
-        fetch(url)
+
+
+    sendRequestForJson(urls, callbackFunction) {
+        let returnData = function(url) { return fetch(url)
             .then(function (response) {
                 const contentType = response.headers.get("content-type");
                 if (contentType && contentType.includes("application/json")) {
+                    //this.filterredArticles.push(response.json());
                     return response.json();
                 }
                 throw new TypeError("Oops, we haven't got JSON!");
-            })
+            });};
+
+        const promises = [];
+        for (let i = 0; i < urls.length; i++) {
+            promises.push(new Promise(resolve => returnData(urls[i])));
+        }
+
+        Promise.all(promises)
+            // .then(data => {
+            //     const contentType = data.headers.get("content-type");
+            //     if (contentType && contentType.includes("application/json")) {
+            //         return data.json();
+            //     }
+            //     throw new TypeError("Oops, we haven't got JSON!");
+            // })
             .then(callbackFunction)
             .catch(function (error) {
                 console.log(error);
             });
+       
+
+            // .then(callbackFunction)
+            // .catch(function (error) {
+            //     console.log(error);
+            // });
     }
+
+
 }
 
-const n = new newsRetriver();
-n.getAllSouces();
+const newsRet = new newsRetriver();
+newsRet.getAllSouces();
+//newsRet.getNews(["ars-technica"]);
 
-n.getNews("ars-technica");
+function applyFilters() {
+    let checkbxChecked = Array.prototype.slice.call(document.getElementsByClassName("source-checkbox"), 0)
+        .filter(c => c.checked);
+
+
+}
 
 // let sortedArticles=resp.articles.sort((x,y)=>Date.parse(y.publishedAt) - Date.parse(x.publishedAt)); //.map(x=>new Date(Date.parse(x.publishedAt)))                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
