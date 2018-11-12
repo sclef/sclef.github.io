@@ -2,8 +2,7 @@ body{
     max-width: 1500px;
 }
 
-#main-menu,
-.article {
+#main-menu, .article {
     width:calc(100%-60px);
     margin:30px;
     border-style: solid;
@@ -12,8 +11,7 @@ body{
     box-shadow: 0 0 10px rgba(185, 185, 185, 0.45);
     box-sizing: border-box;
 }
-.article-header,
-.article-footer{
+.article-header, .article-footer{
     border-color: rgba(0,0,0,0.1);
     padding:5px;
     background: rgb(251, 252, 253);
