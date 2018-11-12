@@ -1,11 +1,8 @@
+import Utils from 'Utils.js'
+
 class NewsRetriever {
     constructor() {
         this.ApiKey = 'e03d718829c24339b5ea62712a181aae';
-    }
-
-    sendRequestForJson(urls, callbackFunction) {
-        let promises = urls.map(url => fetch(url).then(y => y.json()));
-        Promise.all(promises).then(callbackFunction);
     }
 
     getNews(source) {
@@ -17,12 +14,12 @@ class NewsRetriever {
             return SourceUrl;
         });
 
-        this.sendRequestForJson(urls, this.showNews);
+        Utils.sendRequestForJson(urls, this.showNews);
 
     }
     getAllSouces() {
         const allSourcesUrl = 'https://newsapi.org/v1/sources';
-        this.sendRequestForJson([allSourcesUrl], this.fillMenu);
+        Utils.sendRequestForJson([allSourcesUrl], this.fillMenu);
     }
 
     fillMenu(resp) {

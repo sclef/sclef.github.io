@@ -2,11 +2,12 @@
 <html>
 <script type="text/javascript" src="./Main.js"></script>
 <script type="module" src="./NewsRetriever.js"></script>
+<script type="module" src="./Utils.js"></script>
 <link rel="stylesheet" href="main.css">
 
 <body>
     <h1>World Wide News</h1>
-    <input id='apply-filters' type='button' value='show selected sources' onclick='applyFilters()'/>
+    <input id='apply-filters' type='button' value='show selected sources' onclick='Utils.applyFilters()'/>
     <div id='main-menu'> 
         <table id='sources-table'>
             <tr id='table-headers'></tr>
