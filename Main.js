@@ -8,4 +8,4 @@ function applyFilters() {
         .filter(c => c.checked)
         .map(c => c.id);
     newsRet.getNews(sourcesIds);
-}
+};
