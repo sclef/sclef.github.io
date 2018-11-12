@@ -1,4 +1,4 @@
-import NewsRetriever from 'NewsRetriever.js';
+import NewsRetriever from './NewsRetriever';
 
 const newsRet = new NewsRetriever();
 newsRet.getAllSouces();
