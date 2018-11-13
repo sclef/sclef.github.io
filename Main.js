@@ -3,7 +3,11 @@ import NewsRetriever from './NewsRetriever.js';
 const newsRet = new NewsRetriever();
 newsRet.getAllSouces();
 
-export function applyFilters() {
+document.getElementById('apply-filters').addEventListener("click", () => {
+    applyFilters();
+  });
+
+function applyFilters() {
     let sourcesIds = Array.prototype.slice.call(document.getElementsByClassName("source-checkbox"), 0) //convert to array
         .filter(c => c.checked)
         .map(c => c.id);
