@@ -44,7 +44,7 @@ class NewsRetriever {
             categoryTemplate.className = 'category-selection';
             categoryTemplate.innerHTML = categoryOptions;
 
-            document.getElementById("table-headers").appendChild(document.createElement("td")).append(cat);
+            document.getElementById("table-headers").appendChild(document.createElement("td")).append(cat.toUpperCase());
             document.getElementById("table-options").appendChild(document.createElement("td")).appendChild(categoryTemplate);
         }
 
