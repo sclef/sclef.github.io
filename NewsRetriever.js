@@ -17,6 +17,7 @@ class NewsRetriever {
         Utils.sendRequestForJson(urls, this.showNews);
 
     }
+
     getAllSouces() {
         const allSourcesUrl = 'https://newsapi.org/v1/sources';
         Utils.sendRequestForJson([allSourcesUrl], this.fillMenu);
@@ -90,6 +91,13 @@ class NewsRetriever {
 
             newsContainer.appendChild(articleTemplate);
         }
+    }
+
+    applyFilters() {
+        let sourcesIds = Array.prototype.slice.call(document.getElementsByClassName("source-checkbox"), 0) //convert to array
+            .filter(c => c.checked)
+            .map(c => c.id);
+        this.getNews(sourcesIds);
     }
 }
 
