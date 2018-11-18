@@ -1,14 +1,16 @@
 import Utils from './Utils.js';
 
+const ApiKey = 'e03d718829c24339b5ea62712a181aae';
+
 class NewsRetriever {
     constructor() {
-        this.ApiKey = 'e03d718829c24339b5ea62712a181aae';
+        
     }
 
     getNews(source) {
         let urls = source.map(s => {
             let SourceUrl = new URL('https://newsapi.org/v1/articles');
-            let params = { source: s, apiKey: this.ApiKey };
+            let params = { source: s, apiKey: ApiKey };
 
             Object.keys(params).forEach(key => SourceUrl.searchParams.append(key, params[key]))
             return SourceUrl;
