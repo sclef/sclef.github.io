@@ -2,12 +2,18 @@
   "name": "sclef.github.io",
   "version": "1.0.0",
   "scripts": {
-    "build": "babel  src -d lib",
-    "watch": "babel src --watch -d lib"
+    "build": "babel  src --out-file lib/compiled.js",
+    "watch": "babel src --watch --out-file lib/compiled.js"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.5",
     "@babel/core": "^7.1.6",
     "@babel/preset-env": "^7.1.6"
+  },
+  "dependencies": {
+    "es6-promise-promise": "^1.0.0",
+    "uniq": "^1.0.1",
+    "url-polyfill": "^1.1.0",
+    "whatwg-fetch": "^3.0.0"
   }
 }
