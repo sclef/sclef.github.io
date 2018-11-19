@@ -4,7 +4,6 @@ const ApiKey = 'e03d718829c24339b5ea62712a181aae';
 
 class NewsRetriever {
     constructor() {
-        
     }
 
     getNews(source) {
