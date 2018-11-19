@@ -46,7 +46,7 @@ class NewsRetriever {
             categoryTemplate.className = 'category-selection';
             categoryTemplate.innerHTML = categoryOptions;
 
-            //TODO: rewrite to UL markup
+            //TODO: rewrite to UL
             //document.getElementById("table-headers").appendChild(document.createElement("td")).append(cat.toUpperCase());
             document.getElementById("table-options").appendChild(document.createElement("td")).appendChild(categoryTemplate);
         }
