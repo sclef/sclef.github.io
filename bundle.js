@@ -187,6 +187,26 @@ process.umask = function() { return 0; };
 },{}],2:[function(require,module,exports){
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var Constants = function Constants() {
+  _classCallCheck(this, Constants);
+};
+
+_defineProperty(Constants, "ApiKey", "e03d718829c24339b5ea62712a181aae");
+
+var _default = Constants;
+exports.default = _default;
+},{}],3:[function(require,module,exports){
+"use strict";
+
 var _NewsRetriever = _interopRequireDefault(require("./NewsRetriever.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -196,7 +216,7 @@ newsRet.getAllSouces();
 document.getElementById('apply-filters').addEventListener("click", function () {
   newsRet.applyFilters();
 });
-},{"./NewsRetriever.js":3}],3:[function(require,module,exports){
+},{"./NewsRetriever.js":4}],4:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -207,6 +227,8 @@ exports.default = void 0;
 require("url-polyfill");
 
 var _Utils = _interopRequireDefault(require("./Utils.js"));
+
+var _Constants = _interopRequireDefault(require("./Constants.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -240,7 +262,7 @@ function () {
         var SourceUrl = new URL('https://newsapi.org/v1/articles');
         var params = {
           source: s,
-          apiKey: ApiKey
+          apiKey: _Constants.default.ApiKey
         };
         Object.keys(params).forEach(function (key) {
           return SourceUrl.searchParams.append(key, params[key]);
@@ -349,7 +371,7 @@ function () {
 
 var _default = NewsRetriever;
 exports.default = _default;
-},{"./Utils.js":4,"url-polyfill":7}],4:[function(require,module,exports){
+},{"./Constants.js":2,"./Utils.js":5,"url-polyfill":8}],5:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -391,10 +413,10 @@ function () {
 
 var _default = Utils;
 exports.default = _default;
-},{"es6-promise-promise":5,"whatwg-fetch":8}],5:[function(require,module,exports){
+},{"es6-promise-promise":6,"whatwg-fetch":9}],6:[function(require,module,exports){
 module.exports = require('es6-promise').Promise;
 
-},{"es6-promise":6}],6:[function(require,module,exports){
+},{"es6-promise":7}],7:[function(require,module,exports){
 (function (process,global){
 /*!
  * @overview es6-promise - a tiny implementation of Promises/A+.
@@ -1551,7 +1573,7 @@ return Promise;
 })));
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"_process":1}],7:[function(require,module,exports){
+},{"_process":1}],8:[function(require,module,exports){
 (function (global){
 (function(global) {
   /**
@@ -1990,7 +2012,7 @@ return Promise;
 );
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
   typeof define === 'function' && define.amd ? define(['exports'], factory) :
@@ -2523,4 +2545,4 @@ return Promise;
 
 })));
 
-},{}]},{},[2]);
+},{}]},{},[3]);

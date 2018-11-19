@@ -1,5 +1,6 @@
 import 'url-polyfill';
 import Utils from './Utils.js';
+import Constants from './Constants.js';
 
 const ApiKey = 'e03d718829c24339b5ea62712a181aae';
 
@@ -10,7 +11,7 @@ class NewsRetriever {
     getNews(source) {
         let urls = source.map(s => {
             let SourceUrl = new URL('https://newsapi.org/v1/articles');
-            let params = { source: s, apiKey: ApiKey };
+            let params = { source: s, apiKey: Constants.ApiKey };
 
             Object.keys(params).forEach(key => SourceUrl.searchParams.append(key, params[key]))
             return SourceUrl;
