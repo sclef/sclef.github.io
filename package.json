@@ -2,8 +2,14 @@
   "name": "sclef.github.io",
   "version": "1.0.0",
   "scripts": {
-    "build": "babel  src -d lib",
-    "watch": "babel src --watch -d lib"
+    "build-babel": "babel  src -d lib",
+    "watch-babel": "babel src --watch -d lib",
+    "build-browsify":"browserify lib/Main.js -o bundle.js",
+    "watch-browsify":"watchify lib/Main.js -o bundle.js",
+    "start-server":"http-server",
+    "build":"npm run build-babel && npm run build-browsify",
+    "watch":"npm run watch-babel & npm run watch-browsify",
+    "start":"npm run start-server & npm run watch"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.5",
