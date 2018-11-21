@@ -9,5 +9,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var sources = new _SourcesService.default();
 sources.getAllSouces();
 document.getElementById('apply-filters').addEventListener("click", function () {
-  _ArticlesService.default.applyFilters();
+  var aticles = new _ArticlesService.default();
+  aticles.applyFilters();
 });

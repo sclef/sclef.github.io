@@ -62,7 +62,7 @@ class ArticlesService {
         }
     }
 
-    static applyFilters() {
+    applyFilters() {
         let sourcesIds = Array.prototype.slice.call(document.getElementsByClassName("source-checkbox"), 0) //convert to array
             .filter(c => c.checked)
             .map(c => c.id);

@@ -5,5 +5,6 @@ const sources = new Sources();
 sources.getAllSouces();
 
 document.getElementById('apply-filters').addEventListener("click", () => {
-  Articles.applyFilters();
+  let aticles = new Articles();
+  aticles.applyFilters();
 });

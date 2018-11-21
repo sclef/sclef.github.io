@@ -6,7 +6,7 @@
     "watch-babel": "babel src/js --watch -d public/js",
     "build-browsify": "browserify public/js/Main.js -o public/js/bundle.js",
     "watch-browsify": "watchify public/js/Main.js -o public/js/bundle.js",
-    "start-server": "http-server",
+    "start-server": "http-server ./",
     "build": "npm run build-babel && npm run build-browsify",
     "watch": "npm run watch-babel & npm run watch-browsify",
     "start": "npm run start-server & npm run watch"

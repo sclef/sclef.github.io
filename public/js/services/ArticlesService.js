@@ -90,7 +90,7 @@ function () {
         newsContainer.appendChild(articleTemplate);
       }
     }
-  }], [{
+  }, {
     key: "applyFilters",
     value: function applyFilters() {
       var sourcesIds = Array.prototype.slice.call(document.getElementsByClassName("source-checkbox"), 0) //convert to array

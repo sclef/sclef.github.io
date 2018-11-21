@@ -8895,7 +8895,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var sources = new _SourcesService.default();
 sources.getAllSouces();
 document.getElementById('apply-filters').addEventListener("click", function () {
-  _ArticlesService.default.applyFilters();
+  var aticles = new _ArticlesService.default();
+  aticles.applyFilters();
 });
 },{"./services/ArticlesService.js":285,"./services/SourcesService.js":286}],283:[function(require,module,exports){
 "use strict";
@@ -9092,7 +9093,7 @@ function () {
         newsContainer.appendChild(articleTemplate);
       }
     }
-  }], [{
+  }, {
     key: "applyFilters",
     value: function applyFilters() {
       var sourcesIds = Array.prototype.slice.call(document.getElementsByClassName("source-checkbox"), 0) //convert to array
