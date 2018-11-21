@@ -14,8 +14,8 @@ class ArticlesService {
             Object.keys(params).forEach(key => SourceUrl.searchParams.append(key, params[key]))
             return SourceUrl;
         });
-
-        Utils.sendRequestForJson(urls, this.showNews);
+        let utils = new Utils();
+        utils.sendRequestForJson(urls, this.showNews);
 
     }
 
@@ -30,7 +30,7 @@ class ArticlesService {
 
         articles = articles.sort((x, y) => Date.parse(y.publishedAt) - Date.parse(x.publishedAt));
 
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < Constants.NumberOfNews; i++) {
             if (!articles[i]) {
                 return;
             }
@@ -41,7 +41,7 @@ class ArticlesService {
             let artDesc = art.description ? art.description : "";
 
             let artImg = '';
-            let pat = /^https?:\/\//i;
+            let pat = /(?<=http)s?:\/\//i;
             if (pat.test(art.urlToImage)) {
                 artImg = `<img src='${art.urlToImage}'/></a>`;
             }

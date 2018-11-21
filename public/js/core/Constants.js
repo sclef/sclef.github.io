@@ -19,5 +19,7 @@ _defineProperty(Constants, "ArticlesUrl", "https://newsapi.org/v1/articles");
 
 _defineProperty(Constants, "SourcesUrl", "https://newsapi.org/v1/sources");
 
+_defineProperty(Constants, "NumberOfNews", 10);
+
 var _default = Constants;
 exports.default = _default;

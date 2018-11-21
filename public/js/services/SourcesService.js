@@ -27,7 +27,8 @@ function () {
   _createClass(SourcesService, [{
     key: "getAllSouces",
     value: function getAllSouces() {
-      _Utils.default.sendRequestForJson([_Constants.default.SourcesUrl], this.fillMenu);
+      var utils = new _Utils.default();
+      utils.sendRequestForJson([_Constants.default.SourcesUrl], this.fillMenu);
     }
   }, {
     key: "fillMenu",

@@ -48,8 +48,8 @@ function () {
         });
         return SourceUrl;
       });
-
-      _Utils.default.sendRequestForJson(urls, this.showNews);
+      var utils = new _Utils.default();
+      utils.sendRequestForJson(urls, this.showNews);
     }
   }, {
     key: "showNews",
@@ -68,7 +68,7 @@ function () {
         return Date.parse(y.publishedAt) - Date.parse(x.publishedAt);
       });
 
-      for (var _i = 0; _i < 10; _i++) {
+      for (var _i = 0; _i < _Constants.default.NumberOfNews; _i++) {
         if (!articles[_i]) {
           return;
         }
@@ -78,7 +78,7 @@ function () {
         var published = art.publishedAt ? "Published: ".concat(art.publishedAt.substr(0, 10), ". ") : "";
         var artDesc = art.description ? art.description : "";
         var artImg = '';
-        var pat = /^https?:\/\//i;
+        var pat = /(?<=http)s?:\/\//i;
 
         if (pat.test(art.urlToImage)) {
           artImg = "<img src='".concat(art.urlToImage, "'/></a>");

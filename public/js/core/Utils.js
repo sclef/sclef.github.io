@@ -28,35 +28,35 @@ function () {
     _classCallCheck(this, Utils);
   }
 
-  _createClass(Utils, null, [{
+  _createClass(Utils, [{
     key: "sendRequestForJson",
-    value: function sendRequestForJson(urls, callbackFunction) {
-      var _this = this;
-
-      var promises = urls.map(function (url) {
-        return _this.asyncFetch(url);
-      });
-      Promise.all(promises).then(callbackFunction);
-    }
-  }, {
-    key: "asyncFetch",
     value: function () {
-      var _asyncFetch = _asyncToGenerator(
+      var _sendRequestForJson = _asyncToGenerator(
       /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee(url) {
-        var response;
+      regeneratorRuntime.mark(function _callee(urls, callbackFunction) {
+        var promises;
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.next = 2;
-                return fetch(url);
+                _context.t0 = urls;
+                _context.next = 3;
+                return this.asyncFetch;
 
-              case 2:
-                response = _context.sent;
-                return _context.abrupt("return", response.json());
+              case 3:
+                _context.t1 = _context.sent;
+                _context.next = 6;
+                return _context.t0.map.call(_context.t0, _context.t1);
 
-              case 4:
+              case 6:
+                promises = _context.sent;
+                Promise.all(promises).then(callbackFunction).catch(function (error) {
+                  return console.error(error);
+                }).finally(function () {
+                  return console.log("request was sent");
+                });
+
+              case 8:
               case "end":
                 return _context.stop();
             }
@@ -64,7 +64,37 @@ function () {
         }, _callee, this);
       }));
 
-      return function asyncFetch(_x) {
+      return function sendRequestForJson(_x, _x2) {
+        return _sendRequestForJson.apply(this, arguments);
+      };
+    }()
+  }, {
+    key: "asyncFetch",
+    value: function () {
+      var _asyncFetch = _asyncToGenerator(
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee2(url) {
+        var response;
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return fetch(url);
+
+              case 2:
+                response = _context2.sent;
+                return _context2.abrupt("return", response.json());
+
+              case 4:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      return function asyncFetch(_x3) {
         return _asyncFetch.apply(this, arguments);
       };
     }()

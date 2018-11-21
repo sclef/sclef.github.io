@@ -1,4 +1,3 @@
-//import 'url-polyfill';
 import Utils from '../core/Utils.js';
 import Constants from '../core/Constants.js';
 
@@ -7,7 +6,8 @@ class SourcesService {
     }
 
     getAllSouces() {
-        Utils.sendRequestForJson([Constants.SourcesUrl], this.fillMenu);
+        let utils = new Utils();
+        utils.sendRequestForJson([Constants.SourcesUrl], this.fillMenu);
     }
 
     fillMenu(resp) {

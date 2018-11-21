@@ -3,12 +3,15 @@ import 'es6-promise-promise';
 import "@babel/polyfill";
 
 class Utils {
-    static sendRequestForJson(urls, callbackFunction) {
-        let promises = urls.map(url => this.asyncFetch(url));
-        Promise.all(promises).then(callbackFunction);
+    async sendRequestForJson(urls, callbackFunction) {
+        let promises = await urls.map(await this.asyncFetch);
+        Promise.all(promises)
+            .then(callbackFunction)
+            .catch(error => console.error(error))
+            .finally(() => console.log("request was sent"));
     }
 
-    static async asyncFetch(url) {
+    async asyncFetch(url) {
         let response = await fetch(url);
         return response.json();
     }
