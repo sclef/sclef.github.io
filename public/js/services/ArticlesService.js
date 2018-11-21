@@ -7,9 +7,9 @@ exports.default = void 0;
 
 require("url-polyfill");
 
-var _Utils = _interopRequireDefault(require("./Utils.js"));
+var _Utils = _interopRequireDefault(require("../core/Utils.js"));
 
-var _Constants = _interopRequireDefault(require("./Constants.js"));
+var _Constants = _interopRequireDefault(require("../core/Constants.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -27,14 +27,14 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var NewsRetriever =
+var ArticlesService =
 /*#__PURE__*/
 function () {
-  function NewsRetriever() {
-    _classCallCheck(this, NewsRetriever);
+  function ArticlesService() {
+    _classCallCheck(this, ArticlesService);
   }
 
-  _createClass(NewsRetriever, [{
+  _createClass(ArticlesService, [{
     key: "getNews",
     value: function getNews(source) {
       var urls = source.map(function (s) {
@@ -50,46 +50,6 @@ function () {
       });
 
       _Utils.default.sendRequestForJson(urls, this.showNews);
-    }
-  }, {
-    key: "getAllSouces",
-    value: function getAllSouces() {
-      _Utils.default.sendRequestForJson([_Constants.default.SourcesUrl], this.fillMenu);
-    }
-  }, {
-    key: "fillMenu",
-    value: function fillMenu(resp) {
-      var uniqueCategories = function uniqueCategories(item, index, self) {
-        return self.indexOf(item) === index;
-      };
-
-      var categories = resp[0].sources.map(function (a) {
-        return a.category;
-      }).filter(uniqueCategories);
-
-      var _loop = function _loop(i) {
-        var cat = categories[i];
-        var catResources = resp[0].sources.filter(function (r) {
-          return r.category === cat;
-        });
-        var categoryOptions = '';
-
-        for (var j = 0; j < catResources.length; j++) {
-          categoryOptions = categoryOptions.concat("<div><input class='source-checkbox' type='checkbox' id='".concat(catResources[j].id, "'/><label for='").concat(catResources[j].id, "'>").concat(catResources[j].name, "</label></div>"));
-        }
-
-        var categoryTemplate = document.createElement("div");
-        categoryTemplate.id = "".concat(cat, "-select");
-        categoryTemplate.className = 'category-selection';
-        categoryTemplate.innerHTML = categoryOptions; //TODO: rewrite to UL
-        //document.getElementById("table-headers").appendChild(document.createElement("td")).append(cat.toUpperCase());
-
-        document.getElementById("table-options").appendChild(document.createElement("td")).appendChild(categoryTemplate);
-      };
-
-      for (var i = 0; i < categories.length; i++) {
-        _loop(i);
-      }
     }
   }, {
     key: "showNews",
@@ -130,7 +90,7 @@ function () {
         newsContainer.appendChild(articleTemplate);
       }
     }
-  }, {
+  }], [{
     key: "applyFilters",
     value: function applyFilters() {
       var sourcesIds = Array.prototype.slice.call(document.getElementsByClassName("source-checkbox"), 0) //convert to array
@@ -143,8 +103,8 @@ function () {
     }
   }]);
 
-  return NewsRetriever;
+  return ArticlesService;
 }();
 
-var _default = NewsRetriever;
+var _default = ArticlesService;
 exports.default = _default;
