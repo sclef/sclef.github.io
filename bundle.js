@@ -202,6 +202,10 @@ var Constants = function Constants() {
 
 _defineProperty(Constants, "ApiKey", "e03d718829c24339b5ea62712a181aae");
 
+_defineProperty(Constants, "ArticlesUrl", "https://newsapi.org/v1/articles");
+
+_defineProperty(Constants, "SourcesUrl", "https://newsapi.org/v1/sources");
+
 var _default = Constants;
 exports.default = _default;
 },{}],3:[function(require,module,exports){
@@ -246,8 +250,6 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var ApiKey = 'e03d718829c24339b5ea62712a181aae';
-
 var NewsRetriever =
 /*#__PURE__*/
 function () {
@@ -259,7 +261,7 @@ function () {
     key: "getNews",
     value: function getNews(source) {
       var urls = source.map(function (s) {
-        var SourceUrl = new URL('https://newsapi.org/v1/articles');
+        var SourceUrl = new URL(_Constants.default.ArticlesUrl);
         var params = {
           source: s,
           apiKey: _Constants.default.ApiKey
@@ -275,9 +277,7 @@ function () {
   }, {
     key: "getAllSouces",
     value: function getAllSouces() {
-      var allSourcesUrl = 'https://newsapi.org/v1/sources';
-
-      _Utils.default.sendRequestForJson([allSourcesUrl], this.fillMenu);
+      _Utils.default.sendRequestForJson([_Constants.default.SourcesUrl], this.fillMenu);
     }
   }, {
     key: "fillMenu",
