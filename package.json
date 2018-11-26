@@ -10,7 +10,8 @@
     "build": "npm run build-babel && npm run build-browsify",
     "watch": "npm run watch-babel & npm run watch-browsify",
     "start": "npm run start-server & npm run watch",
-    "build-webpack": "webpack --mode development"
+    "build-webpack": "webpack --mode development",
+    "start-dev-server":"webpack-dev-server --mode development"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.5",
@@ -23,7 +24,8 @@
     "less-loader": "^4.1.0",
     "style-loader": "^0.23.1",
     "webpack": "^4.26.0",
-    "webpack-cli": "^3.1.2"
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.10"
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
