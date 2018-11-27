@@ -1,4 +1,4 @@
-import Articles from './services/ArticlesService.js';
+//import Articles from './services/ArticlesService.js';
 import Sources from './services/SourcesService.js';
 import '../css/main.less';
 
@@ -6,6 +6,9 @@ const sources = new Sources();
 sources.getAllSouces();
 
 document.getElementById('apply-filters').addEventListener("click", () => {
-  let aticles = new Articles();
-  aticles.applyFilters();
+  import('./services/ArticlesService.js').then(module => {
+  console.log('articles loaded');
+  let articles =new  module.default();
+  articles.applyFilters();
+  })
 });
