@@ -23,17 +23,25 @@ class SourcesService {
             let categoryOptions = '';
 
             for (let j = 0; j < catResources.length; j++) {
-                categoryOptions = categoryOptions.concat(`<div><input class='source-checkbox' type='checkbox' id='${catResources[j].id}'/><label for='${catResources[j].id}'>${catResources[j].name}</label></div>`)
+                categoryOptions = categoryOptions.concat(`<li><input class='source-checkbox' type='checkbox' id='${catResources[j].id}'/><label for='${catResources[j].id}'>${catResources[j].name}</label></li>`)
             }
 
-            let categoryTemplate = document.createElement("div");
+            let categoryTemplate = document.createElement("ul");
             categoryTemplate.id = `${cat}-select`;
             categoryTemplate.className = 'category-selection';
             categoryTemplate.innerHTML = categoryOptions;
 
+            let categoryLabel = document.createElement("label");
+            categoryLabel.className = 'category-label';
+            categoryLabel.innerHTML = cat.toUpperCase();
+            categoryLabel.htmlFor = `${cat}-select`;
+
+            //let categoryDiv=document.createElement("div");
+            //categoryDiv.id = `${cat}-div`;
             //TODO: rewrite to UL
-            //document.getElementById("table-headers").appendChild(document.createElement("td")).append(cat.toUpperCase());
-            document.getElementById("table-options").appendChild(document.createElement("td")).appendChild(categoryTemplate);
+            let catDiv=document.getElementById("main-menu").appendChild(document.createElement("div"));
+            catDiv.appendChild(categoryLabel);
+            catDiv.appendChild(categoryTemplate);
         }
 
     }

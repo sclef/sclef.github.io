@@ -2,23 +2,17 @@
   "name": "sclef.github.io",
   "version": "1.0.0",
   "scripts": {
-    "build-babel": "babel  src/js -d public/js",
-    "watch-babel": "babel src/js --watch -d public/js",
-    "build-browsify": "browserify public/js/Main.js -o public/js/bundle.js",
-    "watch-browsify": "watchify public/js/Main.js -o public/js/bundle.js",
-    "start-server": "http-server ./",
-    "build": "npm run build-babel && npm run build-browsify",
-    "watch": "npm run watch-babel & npm run watch-browsify",
-    "start": "npm run start-server & npm run watch",
     "build-webpack": "webpack --mode development",
     "start-dev-server": "webpack-dev-server --mode development",
     "build-webpack-prod": "webpack --mode production",
-    "start-dev-server-prod": "webpack-dev-server --mode production"
+    "start-dev-server-prod": "webpack-dev-server --mode production",
+    "start": "npm run build-webpack & npm run start-dev-server"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.5",
     "@babel/core": "^7.1.6",
     "@babel/plugin-proposal-class-properties": "^7.1.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.0.0",
     "@babel/preset-env": "^7.1.6",
     "babel-loader": "^8.0.4",
     "css-loader": "^1.0.1",
