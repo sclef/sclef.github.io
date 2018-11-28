@@ -6,7 +6,7 @@ const sources = new Sources();
 sources.getAllSouces();
 
 document.getElementById('apply-filters').addEventListener("click", () => {
-  import('./services/ArticlesService.js').then(module => {
+  import(/* webpackChunkName: "ArticlesService" */'./services/ArticlesService.js').then(module => {
     console.log('articles loaded');
     let articles = new module.default();
     articles.applyFilters();

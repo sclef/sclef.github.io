@@ -39,7 +39,7 @@ class SourcesService {
             //let categoryDiv=document.createElement("div");
             //categoryDiv.id = `${cat}-div`;
             //TODO: rewrite to UL
-            let catDiv=document.getElementById("main-menu").appendChild(document.createElement("div"));
+            let catDiv = document.getElementById("main-menu").appendChild(document.createElement("div"));
             catDiv.appendChild(categoryLabel);
             catDiv.appendChild(categoryTemplate);
         }
