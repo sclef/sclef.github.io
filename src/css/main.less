@@ -3,13 +3,17 @@ body{
 }
 
 #main-menu, .article {
-    width:calc(100%-60px);
+    //width:calc(100%-60px);
     margin:30px;
     border-style: solid;
     border-width: 1px;
     border-color: rgba(0,0,0,0.1);
     box-shadow: 0 0 10px rgba(185, 185, 185, 0.45);
     box-sizing: border-box;
+}
+
+.article {
+    width: min-content;
 }
 
 .article-header, .article-footer{
@@ -21,14 +25,16 @@ body{
 .article-body{
     padding:5px;
     overflow: hidden;    
+    float: left;
+    width: 500px;
 }
 
 .article-header{
-border-bottom: 1px solid;
+    border-bottom: 1px solid;
 }
 
 .article-footer{
-border-top: 1px solid;
+    border-top: 1px solid;
 }
 
 img{
