@@ -1,6 +1,7 @@
 //import Articles from './services/ArticlesService.js';
 import Sources from './services/SourcesService.js';
 import '../css/main.less';
+__webpack_public_path__ = "public/js/";
 
 const sources = new Sources();
 sources.getAllSouces();
