@@ -11,23 +11,38 @@ export function CreateRequest(url, params) {
 
 class UrlFactory {
     async runRequest(url, callback) {
-        let urlType=url.type!=undefined?url.type.toLowerCase():"";
+        let urlType = url.type != undefined ? url.type.toLowerCase() : "";
         switch (urlType) {
             case "get":
-                $.get(url, function (data, status) { callback([data]) });
+                $.get(url, (data, status) => { this.tryCatchWrapper(callback, [data]) });
                 break;
             case "post":
-                $.post(url, function (data, status) { callback([data]) });
+                $.post(url, (data, status) => { this.tryCatchWrapper(callback, [data]) });
                 break;
             case "put":
-                $.put(url, function (data, status) { callback([data]) });
+                $.put(url, (data, status) => { this.tryCatchWrapper(callback, [data]) });
                 break;
             default:
-                $.get(url, function (data, status) { callback([data]) });
+                $.get(url, (data, status) => { this.tryCatchWrapper(callback, [data]) });
                 break;
-            //return response.promise();
         }
         return urlType;
+    }
+
+    tryCatchWrapper(callbackFunction, resp) {
+        try {
+            callbackFunction(resp);
+            //resp[0].status = "bad Request";
+            if (resp.length == 0 || resp[0].status != "ok") {
+                throw new Error(resp[0].status);
+            }
+        }
+        catch (e) {
+            import(/* webpackChunkName: "ResponseError" */'./ResponseError.js').then(module => {
+                let responseError = module.default.getInstance(e.message);
+                throw responseError;
+            });
+        }
     }
 }
 

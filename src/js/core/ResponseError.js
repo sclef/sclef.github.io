@@ -6,9 +6,6 @@ class ResponseError extends Error{
         ResponseError.instance.message="This is my Error: ".concat(ResponseError.instance.message);
         return ResponseError.instance;
     }
-
 }
-
-//ResponseError.prototype = Object.create(Error.prototype);
 
 export default ResponseError;
