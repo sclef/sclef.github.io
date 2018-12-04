@@ -13,6 +13,7 @@ class Utils {
         let UrlType = await urlFactory.runRequest(url, callbackFunction);
         console.log(UrlType);
         if (typeof url === "object") {
+            //Object.entries willl not get prototipe properties
             for (var prop in url) {
                 console.log("obj." + prop + " = " + url[prop]);
             }
