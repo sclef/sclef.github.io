@@ -1,6 +1,7 @@
 import 'url-polyfill';
 import Utils from '../core/Utils.js';
 import Constants from '../core/Constants.js';
+import {CreateRequest} from '../core/UrlFactory.js';
 
 class ArticlesService {
     constructor() {
@@ -8,11 +9,9 @@ class ArticlesService {
 
     getNews(source) {
         let urls = source.map(s => {
-            let SourceUrl = new URL(Constants.ArticlesUrl);
-            let params = { source: s, apiKey: Constants.ApiKey };
+            let params = { source: s, apiKey: Constants.ApiKey, type:"Get" };
+            return CreateRequest(Constants.ArticlesUrl, params);
 
-            Object.keys(params).forEach(key => SourceUrl.searchParams.append(key, params[key]))
-            return SourceUrl;
         });
         let utils = new Utils();
         utils.sendRequestForJson(urls, this.showNews);
